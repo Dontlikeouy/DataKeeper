@@ -46,7 +46,7 @@ namespace DataKeeper.Entity
                 ""BirthDate""	TEXT NOT NULL,
                 ""SNILSNumber""	TEXT NOT NULL,
                 FOREIGN KEY(""IdClub"") REFERENCES ""FootballClub""(""IdClub""),
-                PRIMARY KEY(""Id"" AUTOINCREMENT);
+                PRIMARY KEY(""Id"" AUTOINCREMENT));
                 INSERT INTO ""Footballer""(""IdClub"",""FullName"",""BirthDate"",""SNILSNumber"")
                     VALUES (1,'Никита Никитин Никитович','09.02.1996','2313213'), (2,'Иван Иванов Иванович','10.10.2000','2313213');"))
             {
@@ -72,7 +72,13 @@ namespace DataKeeper.Entity
         private async void ViewEntity_Click(object sender, RoutedEventArgs e)
         {
             if (AllFootballer.SelectedIndex == -1) return;
-            if (dtFootballer.Rows[AllFootballer.SelectedIndex][1] == DBNull.Value || await AppConfig.executeRequest(
+            if (dtFootballer.Rows[AllFootballer.SelectedIndex][1] == DBNull.Value)
+            {
+                //Заполнение таблицы
+                dt = new DataTable();
+                ResultRequest.ItemsSource = dt.DefaultView;
+            }
+            else if (await AppConfig.executeRequest(
                 $"SELECT * FROM FootballClub WHERE IdClub={dtFootballer.Rows[AllFootballer.SelectedIndex][1]}"))
             {
                 //Заполнение таблицы
@@ -120,6 +126,9 @@ namespace DataKeeper.Entity
                 await AppConfig.executeRequest(
                     $"UPDATE Footballer SET IdClub=NULL WHERE ID={dtFootballer.Rows[AllFootballer.SelectedIndex][0]}");
                 dtFootballer.Rows[AllFootballer.SelectedIndex][1] = DBNull.Value;
+                //Заполнение таблицы
+                dt = new DataTable();
+                ResultRequest.ItemsSource = dt.DefaultView;
             }
         }
 

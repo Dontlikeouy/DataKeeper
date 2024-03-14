@@ -36,7 +36,7 @@ namespace DataKeeper.Entity
                 //Заполнение таблицы
                 dtFootballClub = new DataTable();
                 AppConfig.adapter.Fill(dtFootballClub);
-                
+
                 AllFootballClub.DisplayMemberPath = "Name";
                 AllFootballClub.ItemsSource = dtFootballClub.DefaultView;
             }
@@ -88,16 +88,17 @@ namespace DataKeeper.Entity
         private async void ExclusionFootballer_Click(object sender, RoutedEventArgs e)
         {
             if (AllFootballClub.SelectedIndex == -1) return;
+            if (ResultRequest.SelectedIndex == -1) return;
+
             if (MessageBox.Show("Выбранный футболист будет исключен из выбранного клуба",
             "Delete Footballer",
             MessageBoxButton.YesNo,
             MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 // Изменяет IdClub на NULL у конкретного футболиста
-                if (ResultRequest.SelectedIndex == -1) return;
 
                 if (await AppConfig.executeRequest(
-                    $"UPDATE Footballer SET IdClub=NULL WHERE IdClub={dtFootballClub.Rows[AllFootballClub.SelectedIndex][0]}"))
+                    $"UPDATE Footballer SET IdClub=NULL WHERE ID={dt.Rows[ResultRequest.SelectedIndex][0]}"))
                 {
                     dt.Rows.RemoveAt(ResultRequest.SelectedIndex);
                 }
