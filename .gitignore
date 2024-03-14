@@ -1,0 +1,5 @@
+.temp
+.vscode
+DataKeeper/bin
+DataKeeper/obj
+DataKeeper/database.db

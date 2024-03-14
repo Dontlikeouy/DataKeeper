@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="DataKeeper.Entity.Footballer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DataKeeper.Entity"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="AUTO"/>
+            <RowDefinition Height="AUTO"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Border BorderThickness="0 0 1 0" BorderBrush="Gray"  Margin="0 0 0 10">
+            <StackPanel x:Name="GeneralButton" Orientation="Horizontal" HorizontalAlignment="Left" >
+
+                <Button x:Name="CreateEntity" Click="CreateEntity_Click" Content="Добавить сущность" Padding="5" Margin="0 0 10 0"/>
+                <Button x:Name="DeleteEntity" Click="DeleteEntity_Click" Content="Удалить сущность" Padding="5"  Margin="0 0 10 0"/>
+                <Button x:Name="ViewEntity" Click="ViewEntity_Click" Content="Просмотр футбольного клуба" Padding="5" Margin="0 0 10 0"/>
+                <Button x:Name="ExclusionFootballer" Click="ExclusionFootballer_Click" Content="Исключение футболиста" Padding="5" Margin="0 0 10 0"/>
+                <Button x:Name="AddFootballer" Click="AddFootballer_Click" Content="Перевести футболиста" Padding="5" Margin="0 0 10 0"/>
+
+            </StackPanel>
+        </Border>
+        <StackPanel Grid.Row="1">
+            <TextBlock Text="Футболисты:"  Margin="0 0 0 5"/>
+            <ComboBox x:Name="AllFootballer"/>
+        </StackPanel>
+
+        <DataGrid x:Name="ResultRequest"  Grid.Row="2"  CanUserAddRows="False"/>
+
+    </Grid>
+</UserControl>
